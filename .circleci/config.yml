@@ -93,30 +93,30 @@ workflows:
   checkout_and_test:
     jobs:
       - checkout_code: *triggerable-by-tag
-      - nodefetch1:
-          <<: *triggerable-by-tag
-          requires:
-            - checkout_code
-      - nodefetch2:
-          <<: *triggerable-by-tag
-          requires:
-            - checkout_code
-      - node6:
-          <<: *triggerable-by-tag
-          requires:
-            - checkout_code
-      - chrome:
-          <<: *triggerable-by-tag
-          requires:
-            - checkout_code
-# firefox version too old for sw, so postpone cross browser tests till updated in circleci
-#      - firefox:
-#          requires:
-#            - checkout_code
-      - lint:
-          <<: *triggerable-by-tag
-          requires:
-            - checkout_code
+#       - nodefetch1:
+#           <<: *triggerable-by-tag
+#           requires:
+#             - checkout_code
+#       - nodefetch2:
+#           <<: *triggerable-by-tag
+#           requires:
+#             - checkout_code
+#       - node6:
+#           <<: *triggerable-by-tag
+#           requires:
+#             - checkout_code
+#       - chrome:
+#           <<: *triggerable-by-tag
+#           requires:
+#             - checkout_code
+# # firefox version too old for sw, so postpone cross browser tests till updated in circleci
+# #      - firefox:
+# #          requires:
+# #            - checkout_code
+#       - lint:
+#           <<: *triggerable-by-tag
+#           requires:
+#             - checkout_code
       - deploy:
           context: wheresrhys-npm-publish
           requires:
@@ -125,7 +125,7 @@ workflows:
             # - node6
             # - chrome
            # - firefox
-            - lint
+            - checkout_code
           filters:
             branches:
               ignore: /.*/
