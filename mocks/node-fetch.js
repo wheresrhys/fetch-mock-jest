@@ -3,4 +3,8 @@ const fetchMock = require('../fetch-mock-jest').sandbox();
 Object.assign(fetchMock.config, nodeFetch, {
   fetch: nodeFetch
 });
-module.exports = fetchMock;
+module.exports = Object.assign(fetchMock, {
+	Request: nodeFetch.Request,
+	Response: nodeFetch.Response,
+	Headers: nodeFetch.Headers,
+});
