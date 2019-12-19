@@ -49,6 +49,8 @@ const jestify = fetchMockInstance => {
 	// make sure all the jest expectation helpers can find what they need on fetchMock.mock
 	Object.assign(jestifiedInstance.mock, jestifiedInstance.fetchHandler.mock)
 
+	// make sure that the mock object that has properties updated
+	// by the jest spy is the one that is exposed on fetch
 	jestifiedInstance.fetchHandler.mock = jestifiedInstance.mock;
 
 	// Return this monster!
