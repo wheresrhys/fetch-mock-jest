@@ -8,29 +8,22 @@ Untested, but the API is essentially gonna be:
 
 ## global fetch
 
-const fetchMock = require('fetch-mock-jest')
+`const fetchMock = require('fetch-mock-jest')`
 
 ## node-fetch
 
+```
+jest.mock('node-fetch', () => require('fetch-mock-jest'))
 const fetchMock = require('node-fetch')
-
-### jest.config
-
-```js
-module.exports = {
-    moduleNameMapper: {
-        'node-fetch': 'fetch-mock-jest/mocks/node-fetch.js'
-    },
-};
 ```
 
 # API
 
-`expect(fetchMock.jest)` can be inspected using all the built in jest function inspection assertions
+`expect(fetchMock)` can be inspected using all the built in jest function inspection assertions
 
 In addition, the following work:
-`expect(fetchMock.jest).toHaveLastFetched(url, options)`
-`expect(fetchMock.jest).toHaveNthFetched(n, url, options)`
-`expect(fetchMock.jest).toHaveFetchedTimes(times, url, options)`
-`expect(fetchMock.jest).toBeDone(matcher)`
+`expect(fetchMock).toHaveLastFetched(url, options)`
+`expect(fetchMock).toHaveNthFetched(n, url, options)`
+`expect(fetchMock).toHaveFetchedTimes(times, url, options)`
+`expect(fetchMock).toBeDone(matcher)`
 , proxying through to the similar fetchMock methods.
