@@ -6,9 +6,8 @@ test:
 	jest
 
 lint-ci:
-	eslint --ignore-pattern .
+	eslint .
 	prettier *.md
-	dtslint --expectOnly types
 
 lint:
 	eslint --cache --fix .
