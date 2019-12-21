@@ -2,8 +2,6 @@
 
 Wrapper around fetch-mock to make working with jest a jolly old joy.
 
-Untested, but the API is essentially gonna be:
-
 # Installation
 
 ## global fetch
