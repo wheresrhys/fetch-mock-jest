@@ -5,16 +5,16 @@ expect.extend({
 		if (lastCall === lastUrlCall) {
 			return {pass: true}
 		}
-		return {pass: false, message: `Last call to fetch should have had a URL of ${url}`}
+		return {pass: false, message:() => `Last call to fetch should have had a URL of ${url}`}
 	},
 
 	toHaveNthFetched: (fetchMock, n, url, options) => {
 		const nthCall = fetchMock.calls()[n-1];
-		const nthUrlCall = fetchMock.calls(url, options)[n-1];
-		if (nthCall === nthUrlCall) {
+		const urlCalls = fetchMock.calls(url, options);
+		if (urlCalls.includes(nthCall)) {
 			return {pass: true}
 		}
-		return {pass: false, message: `${n}th call to fetch should have had a URL of ${url}`}
+		return {pass: false, message:() => `${n}th call to fetch should have had a URL of ${url}`}
 	},
 
 	toHaveFetchedTimes: (fetchMock, times, url, options) => {
@@ -22,14 +22,16 @@ expect.extend({
 		if (calls.length === times) {
 			return {pass: true}
 		}
-		return {pass: false, message: `fetch should have been called with a URL of ${url} ${times} times, but it was called ${calls.length} times`}
+		return {pass: false, message:() => `fetch should have been called with a URL of ${url} ${times} times, but it was called ${calls.length} times`}
 	},
 
 	toBeDone: (fetchMock, matcher) => {
 		const done = fetchMock.done(matcher)
+
+		console.log({done, matcher})
 		if (done) {
 			return {pass: true}
 		}
-		return {pass: false, message: 'fetch has not been called the expected number of times in total'}
+		return {pass: false, message:() => 'fetch has not been called the expected number of times in total'}
 	}
 })

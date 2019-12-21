@@ -1,4 +1,20 @@
-expect.extend({
+jest.mock('node-fetch', () => require('../fetch-mock-jest').sandbox())
+const fetch = require('node-fetch');
+describe('jest built-ins', () => {
+	beforeAll(() => {
+		fetch.mock('*', 200)
+		fetch('http://example.com', {
+			headers: {
+				test: 'header'
+			}
+		})
+	})
+
+	afterAll(() => fetch.reset())
+
+	it('exposes `calls` property', () => {
+
+	})
 // mockFn.mock.calls
 // mockFn.mock.results
 // mockFn.mock.instances
