@@ -13,7 +13,7 @@ Wrapper around [fetch-mock](http://www.wheresrhys.co.uk/fetch-mock) - a comprehe
 ## node-fetch
 
 ```
-jest.mock('node-fetch', () => require('fetch-mock-jest'))
+jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox())
 const fetchMock = require('node-fetch')
 ```
 
