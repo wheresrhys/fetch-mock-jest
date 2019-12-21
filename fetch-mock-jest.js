@@ -1,17 +1,6 @@
 /*global jest*/
 require('./jest-extensions');
 
-// const nodeFetch = jest.requireActual('node-fetch');
-// const fetchMock = require('../fetch-mock-jest').sandbox();
-// Object.assign(fetchMock.config, nodeFetch, {
-//   fetch: nodeFetch
-// });
-// module.exports = Object.assign(fetchMock, {
-// 	Request: nodeFetch.Request,
-// 	Response: nodeFetch.Response,
-// 	Headers: nodeFetch.Headers,
-// });
-
 const fetchMock = require('fetch-mock');
 const jestify = fetchMockInstance => {
 	const jestifiedInstance = new Proxy(fetchMockInstance, {

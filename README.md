@@ -19,7 +19,7 @@ const fetchMock = require('node-fetch')
 
 # API
 
-`expect(fetchMock)` can be inspected using all the built in jest function inspection assertions
+`expect(fetchMock)` can be inspected using all the built in jest function inspection assertions. `fetch.mockClear()` and `fetch.mockReset()` shodul aslo work (however all other jest mock setup methods are disabled as fetch-mock's own methdos should always be used)
 
 In addition, the following work:
 `expect(fetchMock).toHaveLastFetched(url, options)`
