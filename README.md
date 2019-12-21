@@ -19,7 +19,7 @@ const fetchMock = require('node-fetch')
 
 # API
 
-All the built in jest function inspection assertions can be used, e.g. `expect(fetchMock).toHaveBeenCalledWith('http://example.com')`. 
+All the built in jest function inspection assertions can be used, e.g. `expect(fetchMock).toHaveBeenCalledWith('http://example.com')`.
 
 `fetch.mockClear()` can be used to reset the call history
 
@@ -41,5 +41,6 @@ The following custom jest expectation methods, proxying through to `fetch-mock`'
 ### TODO
 
 These would also be useful jest extensions:
+
 - `toHaveFetched`
 - `toHaveRespondedWith({status, body, headers})` (using objectMatching semantics)
