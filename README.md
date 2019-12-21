@@ -11,7 +11,7 @@ Wrapper around fetch-mock to make working with jest a jolly old joy.
 ## node-fetch
 
 ```
-jest.mock('node-fetch', () => require('fetch-mock-jest'))
+jest.mock('node-fetch', () => require('fetch-mock-jest').sandbox())
 const fetchMock = require('node-fetch')
 ```
 
