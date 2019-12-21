@@ -6,7 +6,7 @@ test:
 	jest
 
 lint-ci:
-	eslint --ignore-pattern test/fixtures/* src test
+	eslint --ignore-pattern .
 	prettier *.md
 	dtslint --expectOnly types
 
