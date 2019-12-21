@@ -34,49 +34,13 @@ jobs:
           key: npm-cache-{{ checksum "package-lock.json" }}
       - run: make lint-ci
 
-  nodefetch2:
+  test:
     <<: *env
     steps:
       - checkout
       - restore_cache:
           key: npm-cache-{{ checksum "package-lock.json" }}
-      - run: make coverage-report
-
-  nodefetch1:
-    <<: *env
-    steps:
-      - checkout
-      - restore_cache:
-          key: npm-cache-{{ checksum "package-lock.json" }}
-      - run: npm install node-fetch@1
-      - run: make test-unit
-
-  node6:
-    docker:
-      - image: circleci/node:6.13.0
-    steps:
-      - checkout
-      - restore_cache:
-          key: npm-cache-{{ checksum "package-lock.json" }}
-      - run: npm rebuild
-      - run: make test-node6
-
-  chrome:
-    <<: *env-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          key: npm-cache-{{ checksum "package-lock.json" }}
-      - run: make test-chrome
-
-  firefox:
-    <<: *env-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          key: npm-cache-{{ checksum "package-lock.json" }}
-      - run: npm install karma-firefox-launcher
-      - run: make test-firefox
+      - run: make test
 
   deploy:
     <<: *env
@@ -93,39 +57,23 @@ workflows:
   checkout_and_test:
     jobs:
       - checkout_code: *triggerable-by-tag
-#       - nodefetch1:
-#           <<: *triggerable-by-tag
-#           requires:
-#             - checkout_code
-#       - nodefetch2:
-#           <<: *triggerable-by-tag
-#           requires:
-#             - checkout_code
-#       - node6:
-#           <<: *triggerable-by-tag
-#           requires:
-#             - checkout_code
-#       - chrome:
-#           <<: *triggerable-by-tag
-#           requires:
-#             - checkout_code
-# # firefox version too old for sw, so postpone cross browser tests till updated in circleci
-# #      - firefox:
-# #          requires:
-# #            - checkout_code
-#       - lint:
-#           <<: *triggerable-by-tag
-#           requires:
-#             - checkout_code
+      - test:
+          <<: *triggerable-by-tag
+          requires:
+            - checkout_code
+      - lint:
+          <<: *triggerable-by-tag
+          requires:
+            - checkout_code
+      - test:
+          <<: *triggerable-by-tag
+          requires:
+            - checkout_code
       - deploy:
           context: wheresrhys-npm-publish
           requires:
-            # - nodefetch1
-            # - nodefetch2
-            # - node6
-            # - chrome
-           # - firefox
-            - checkout_code
+            - test
+            - lint
           filters:
             branches:
               ignore: /.*/
