@@ -1,7 +1,7 @@
 {
   "name": "fetch-mock-jest",
   "version": "0.0.0",
-  "description": "",
+  "description": "Jest wrapper for fetch-mock",
   "main": "fetch-mock-jest.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,12 +10,30 @@
     "type": "git",
     "url": "git+https://github.com/wheresrhys/fetch-mock-jest.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+    "engines": {
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "fetch",
+    "http",
+    "mock",
+    "testing",
+    "spy",
+    "jest"
+  ],
+  "funding": {
+    "type": "charity",
+    "url": "https://www.justgiving.com/refugee-support-europe"
+  },
+  "author": "Rhys Evans",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wheresrhys/fetch-mock-jest/issues"
   },
+  "peerDependencies": {
+    "jest": "*"
+  },
+
   "homepage": "https://github.com/wheresrhys/fetch-mock-jest#readme",
   "dependencies": {
     "fetch-mock": "^8.0.0"
