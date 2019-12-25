@@ -43,4 +43,4 @@ The following custom jest expectation methods, proxying through to `fetch-mock`'
 These would also be useful jest extensions:
 
 - `toHaveFetched`
-- `toHaveRespondedWith({status, body, headers})` (using objectMatching semantics)
+- `toHaveRespondedWith(object | status | string )` (using fetch-mock internals to convert to a response config, then use jest objectMatching)
