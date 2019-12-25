@@ -2,6 +2,54 @@
 jest.mock('node-fetch', () => require('../fetch-mock-jest').sandbox());
 const fetch = require('node-fetch');
 describe('jest extensions', () => {
+	describe('toHaveFetched', () => {
+		beforeAll(() => {
+			fetch.mock('*', 200);
+			fetch('http://example.com/path2', {
+				headers: {
+					test: 'header'
+				}
+			});
+			fetch('http://example.com/path', {
+				headers: {
+					test: 'header'
+				}
+			});
+		});
+		afterAll(() => fetch.reset());
+
+		it('matches with just url', () => {
+			expect(fetch).toHaveFetched('http://example.com/path');
+		});
+
+		it('matches with fetch-mock matcher', () => {
+			expect(fetch).toHaveFetched('begin:http://example.com/path');
+		});
+
+		it('matches with matcher and options', () => {
+			expect(fetch).toHaveFetched('http://example.com/path', {
+				headers: {
+					test: 'header'
+				}
+			});
+		});
+
+		it("doesn't match if matcher but not options is correct", () => {
+			expect(fetch).not.toHaveFetched('http://example.com/path', {
+				headers: {
+					test: 'not-header'
+				}
+			});
+		});
+
+		it("doesn't match if options but not matcher is correct", () => {
+			expect(fetch).not.toHaveFetched('http://example-no.com/path', {
+				headers: {
+					test: 'header'
+				}
+			});
+		});
+	});
 	describe('toHaveLastFetched', () => {
 		beforeAll(() => {
 			fetch.mock('*', 200);
