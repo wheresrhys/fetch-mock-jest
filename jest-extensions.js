@@ -1,4 +1,13 @@
 expect.extend({
+	toHaveFetched: (fetchMock, url, options) => {
+		if (fetchMock.called(url, options)) {
+			return { pass: true };
+		}
+		return {
+			pass: false,
+			message: () => `fetch should have been called with ${url}`
+		};
+	},
 	toHaveLastFetched: (fetchMock, url, options) => {
 		const lastCall = [...fetchMock.calls()].pop();
 		const lastUrlCall = [...fetchMock.calls(url, options)].pop();

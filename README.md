@@ -31,6 +31,7 @@ All other jest methods for configuring mock functions are disabled as fetch-mock
 
 The following custom jest expectation methods, proxying through to `fetch-mock`'s inspection methods are also available. They can all be prefixed with the `.not` helper for negative assertions.
 
+- `expect(fetchMock).toHaveFetched(filter, options)`
 - `expect(fetchMock).toHaveLastFetched(filter, options)`
 - `expect(fetchMock).toHaveNthFetched(n, filter, options)`
 - `expect(fetchMock).toHaveFetchedTimes(n, filter, options)`
