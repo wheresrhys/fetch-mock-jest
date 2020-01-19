@@ -1,5 +1,5 @@
 /*global jest, beforeAll, afterAll */
-jest.mock('node-fetch', () => require('../fetch-mock-jest').sandbox());
+jest.mock('node-fetch', () => require('../server').sandbox());
 const fetch = require('node-fetch');
 describe('jest extensions', () => {
 	describe('toHaveFetched', () => {

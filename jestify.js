@@ -1,7 +1,6 @@
 /*global jest*/
 require('./jest-extensions');
 
-const fetchMock = require('fetch-mock');
 const jestify = fetchMockInstance => {
 	const jestifiedInstance = new Proxy(fetchMockInstance, {
 		get: (originalFetchMock, name) => {
@@ -98,4 +97,4 @@ const jestify = fetchMockInstance => {
 	return jestifiedInstance;
 };
 
-module.exports = jestify(fetchMock);
+module.exports = fetchMock => jestify(fetchMock);
