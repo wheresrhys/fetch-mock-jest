@@ -2,7 +2,8 @@
   "name": "fetch-mock-jest",
   "version": "0.0.0",
   "description": "Jest wrapper for fetch-mock, a comprehensive stub for fetch",
-  "main": "fetch-mock-jest.js",
+  "main": "server.js",
+  "browser": "browser.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/wheresrhys/fetch-mock-jest.git"
   },
-    "engines": {
+  "engines": {
     "node": ">=8.0.0"
   },
   "keywords": [
@@ -33,10 +34,9 @@
   "peerDependencies": {
     "jest": "*"
   },
-
   "homepage": "https://github.com/wheresrhys/fetch-mock-jest#readme",
   "dependencies": {
-    "fetch-mock": "^8.0.0"
+    "fetch-mock": "^9.0.0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
