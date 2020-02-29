@@ -1,4 +1,4 @@
-const fetchMock = require('fetch-mock/cjs/client.js');
+const fetchMock = require('fetch-mock');
 const jestify = require('./jestify');
 
 module.exports = jestify(fetchMock);
