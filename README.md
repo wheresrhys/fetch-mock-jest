@@ -77,11 +77,24 @@ test(async () => {
     }, 405)
     
   expect(await userManager.getAll()).toEqual([{name: 'bob'}])
+  expect(fetchMock).toHaveLastFetched('http://example.com/users', 'get') 
   await userManager.create({name: true})
+  expect(fetchMock).toHaveLastFetched({
+    url: 'http://example.com/user', 
+    body: {name: true}
+  }, 'post')
   expect(await userManager.getAll()).toEqual([{name: 'bob'}])
+  fetchMock.mockClear()
   await userManager.create({name: 'sarah'})   
-  expect(await userManager.getAll()).toEqual([{name: 'bob'}, {name: 'sarah'}])
-  fetchMock.clear()
+  expect(fetchMock).toHaveLastFetched({
+    url: 'http://example.com/user', 
+    body: {name: 'sarah'}
+  }, 'post')
+  expect(await userManager.getAll()).toEqual([
+    {name: 'bob'}, 
+    {name: 'sarah'}
+  ])
+  fetchMock.mockReset()
 })
 
 ```
