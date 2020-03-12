@@ -5,6 +5,7 @@ Wrapper around [fetch-mock](http://www.wheresrhys.co.uk/fetch-mock) - a comprehe
 The example at the bottom of this readme demonstrates the intuitive API, but shows off only a fraction of fetch-mock's functionality. Features include:
 
 - helpers for all common http methods and for responding a limited number of times
+- declarative matching for most aspects of a http request 
 - delayed responses
 - spying on real network requests
 - support for advanced fetch behaviours, such as streaming responses and aborting
