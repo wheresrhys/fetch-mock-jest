@@ -63,39 +63,47 @@ const fetchMock = require('fetch-mock-jest');
 const userManager = require('../src/user-manager');
 
 test(async () => {
-  const users = [{name: 'bob'}];
-  fetchMock
-    .get('http://example.com/users', users)
-    .post('http://example.com/user', (url, options) => {
-      if (typeof options.body.name === 'string') {
-        users.push(options.body)
-        return 202
-      }
-      return 400
-    })
-    .patch({
-      url: 'http://example.com/user'
-    }, 405)
-    
-  expect(await userManager.getAll()).toEqual([{name: 'bob'}])
-  expect(fetchMock).toHaveLastFetched('http://example.com/users', 'get') 
-  await userManager.create({name: true})
-  expect(fetchMock).toHaveLastFetched({
-    url: 'http://example.com/user', 
-    body: {name: true}
-  }, 'post')
-  expect(await userManager.getAll()).toEqual([{name: 'bob'}])
-  fetchMock.mockClear()
-  await userManager.create({name: 'sarah'})   
-  expect(fetchMock).toHaveLastFetched({
-    url: 'http://example.com/user', 
-    body: {name: 'sarah'}
-  }, 'post')
-  expect(await userManager.getAll()).toEqual([
-    {name: 'bob'}, 
-    {name: 'sarah'}
-  ])
-  fetchMock.mockReset()
-})
+	const users = [{ name: 'bob' }];
+	fetchMock
+		.get('http://example.com/users', users)
+		.post('http://example.com/user', (url, options) => {
+			if (typeof options.body.name === 'string') {
+				users.push(options.body);
+				return 202;
+			}
+			return 400;
+		})
+		.patch(
+			{
+				url: 'http://example.com/user'
+			},
+			405
+		);
 
+	expect(await userManager.getAll()).toEqual([{ name: 'bob' }]);
+	expect(fetchMock).toHaveLastFetched('http://example.com/users', 'get');
+	await userManager.create({ name: true });
+	expect(fetchMock).toHaveLastFetched(
+		{
+			url: 'http://example.com/user',
+			body: { name: true }
+		},
+		'post'
+	);
+	expect(await userManager.getAll()).toEqual([{ name: 'bob' }]);
+	fetchMock.mockClear();
+	await userManager.create({ name: 'sarah' });
+	expect(fetchMock).toHaveLastFetched(
+		{
+			url: 'http://example.com/user',
+			body: { name: 'sarah' }
+		},
+		'post'
+	);
+	expect(await userManager.getAll()).toEqual([
+		{ name: 'bob' },
+		{ name: 'sarah' }
+	]);
+	fetchMock.mockReset();
+});
 ```

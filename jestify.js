@@ -23,6 +23,10 @@ const jestify = fetchMockInstance => {
 	// make sure all the jest expectation helpers can find what they need on fetchMock.mock
 	Object.assign(jestifiedInstance.mock, jestifiedInstance.fetchHandler.mock);
 
+	['_isMockFunction', 'mockName', 'getMockName'].forEach(prop => {
+		jestifiedInstance[prop] = jestifiedInstance.fetchHandler[prop];
+	});
+
 	jestifiedInstance.mockClear = () => {
 		jestifiedInstance.fetchHandler.mockClear();
 		jestifiedInstance.resetHistory();
