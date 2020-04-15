@@ -7,13 +7,13 @@ describe('jest built-ins', () => {
 			fetch.mock('http://example.com', 200).mock('http://example2.com', 201);
 			fetch('http://example.com', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 			fetch('http://example2.com', {
 				headers: {
-					test: 'header2'
-				}
+					test: 'header2',
+				},
 			});
 		});
 
@@ -26,28 +26,28 @@ describe('jest built-ins', () => {
 					'http://example.com',
 					{
 						headers: {
-							test: 'header'
-						}
-					}
+							test: 'header',
+						},
+					},
 				],
 				[
 					'http://example2.com',
 					{
 						headers: {
-							test: 'header2'
-						}
-					}
-				]
+							test: 'header2',
+						},
+					},
+				],
 			]);
 		});
 		it('exposes `results` property', async () => {
 			expect(fetch.mock.results).toBeDefined();
 			expect(fetch.mock.results.length).toEqual(2);
 			expect(await fetch.mock.results[0].value).toMatchObject({
-				status: 200
+				status: 200,
 			});
 			expect(await fetch.mock.results[1].value).toMatchObject({
-				status: 201
+				status: 201,
 			});
 		});
 	});
@@ -57,13 +57,13 @@ describe('jest built-ins', () => {
 			fetch.mock('http://example.com', 200).mock('http://example2.com', 201);
 			fetch('http://example.com', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 			fetch('http://example2.com', {
 				headers: {
-					test: 'header2'
-				}
+					test: 'header2',
+				},
 			});
 		});
 

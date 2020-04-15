@@ -33,13 +33,13 @@ describe('jest extensions', () => {
 			fetch.mock('*', 200);
 			fetch('http://example.com/path2', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 			fetch('http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 		afterAll(() => fetch.reset());
@@ -55,24 +55,24 @@ describe('jest extensions', () => {
 		it('matches with matcher and options', () => {
 			expect(fetch).toHaveFetched('http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 
 		it("doesn't match if matcher but not options is correct", () => {
 			expect(fetch).not.toHaveFetched('http://example.com/path', {
 				headers: {
-					test: 'not-header'
-				}
+					test: 'not-header',
+				},
 			});
 		});
 
 		it("doesn't match if options but not matcher is correct", () => {
 			expect(fetch).not.toHaveFetched('http://example-no.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 	});
@@ -81,8 +81,8 @@ describe('jest extensions', () => {
 			fetch.mock('*', 200);
 			fetch('http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 		afterAll(() => fetch.reset());
@@ -98,24 +98,24 @@ describe('jest extensions', () => {
 		it('matches with matcher and options', () => {
 			expect(fetch).toHaveLastFetched('http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 
 		it("doesn't match if matcher but not options is correct", () => {
 			expect(fetch).not.toHaveLastFetched('http://example.com/path', {
 				headers: {
-					test: 'not-header'
-				}
+					test: 'not-header',
+				},
 			});
 		});
 
 		it("doesn't match if options but not matcher is correct", () => {
 			expect(fetch).not.toHaveLastFetched('http://example-no.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 	});
@@ -125,13 +125,13 @@ describe('jest extensions', () => {
 			fetch.mock('*', 200);
 			fetch('http://example1.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 			fetch('http://example2.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 		afterAll(() => fetch.reset());
@@ -147,24 +147,24 @@ describe('jest extensions', () => {
 		it('matches with matcher and options', () => {
 			expect(fetch).toHaveNthFetched(2, 'http://example2.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 
 		it("doesn't match if matcher but not options is correct", () => {
 			expect(fetch).not.toHaveNthFetched(2, 'http://example2.com/path', {
 				headers: {
-					test: 'not-header'
-				}
+					test: 'not-header',
+				},
 			});
 		});
 
 		it("doesn't match if options but not matcher is correct", () => {
 			expect(fetch).not.toHaveNthFetched(2, 'http://example-no.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 
@@ -178,13 +178,13 @@ describe('jest extensions', () => {
 			fetch.mock('*', 200);
 			fetch('http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 			fetch('http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 		afterAll(() => fetch.reset());
@@ -200,24 +200,24 @@ describe('jest extensions', () => {
 		it('matches with matcher and options', () => {
 			expect(fetch).toHaveFetchedTimes(2, 'http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 
 		it("doesn't match if matcher but not options is correct", () => {
 			expect(fetch).not.toHaveFetchedTimes(2, 'http://example.com/path', {
 				headers: {
-					test: 'not-header'
-				}
+					test: 'not-header',
+				},
 			});
 		});
 
 		it("doesn't match if options but not matcher is correct", () => {
 			expect(fetch).not.toHaveFetchedTimes(2, 'http://example-no.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 
@@ -236,13 +236,13 @@ describe('jest extensions', () => {
 			fetch.mock('http://example2.com/path', 200, { repeat: 2 });
 			fetch('http://example.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 			fetch('http://example2.com/path', {
 				headers: {
-					test: 'header'
-				}
+					test: 'header',
+				},
 			});
 		});
 		afterAll(() => fetch.reset());

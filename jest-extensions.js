@@ -5,7 +5,7 @@ expect.extend({
 		}
 		return {
 			pass: false,
-			message: () => `fetch should have been called with ${url}`
+			message: () => `fetch should have been called with ${url}`,
 		};
 	},
 	toHaveLastFetched: (fetchMock, url, options) => {
@@ -13,7 +13,7 @@ expect.extend({
 		if (!allCalls.length) {
 			return {
 				pass: false,
-				message: () => `No calls made to fetch`
+				message: () => `No calls made to fetch`,
 			};
 		}
 		const lastCall = [...allCalls].pop();
@@ -24,7 +24,7 @@ expect.extend({
 		return {
 			pass: false,
 			message: () =>
-				`Last call to fetch should have had a URL of ${url} but was ${lastCall.url}`
+				`Last call to fetch should have had a URL of ${url} but was ${lastCall.url}`,
 		};
 	},
 
@@ -37,7 +37,7 @@ expect.extend({
 		return {
 			pass: false,
 			message: () =>
-				`${n}th call to fetch should have had a URL of ${url} but was ${nthCall.url}`
+				`${n}th call to fetch should have had a URL of ${url} but was ${nthCall.url}`,
 		};
 	},
 
@@ -49,7 +49,7 @@ expect.extend({
 		return {
 			pass: false,
 			message: () =>
-				`fetch should have been called with a URL of ${url} ${times} times, but it was called ${calls.length} times`
+				`fetch should have been called with a URL of ${url} ${times} times, but it was called ${calls.length} times`,
 		};
 	},
 
@@ -63,7 +63,7 @@ expect.extend({
 			message: () =>
 				`fetch has not been called the expected number of times ${
 					matcher ? `for ${matcher}` : 'in total'
-				}`
+				}`,
 		};
-	}
+	},
 });

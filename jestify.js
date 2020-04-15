@@ -1,7 +1,7 @@
 /*global jest*/
 require('./jest-extensions');
 
-const jestify = fetchMockInstance => {
+const jestify = (fetchMockInstance) => {
 	const jestifiedInstance = new Proxy(fetchMockInstance, {
 		get: (originalFetchMock, name) => {
 			if (name === 'sandbox') {
@@ -9,11 +9,11 @@ const jestify = fetchMockInstance => {
 					apply: (func, thisArg, args) => {
 						const sandboxedFetchMock = func.apply(originalFetchMock, args);
 						return jestify(sandboxedFetchMock);
-					}
+					},
 				});
 			}
 			return originalFetchMock[name];
-		}
+		},
 	});
 
 	// spy on the fetch handler so we can use all the
@@ -23,7 +23,7 @@ const jestify = fetchMockInstance => {
 	// make sure all the jest expectation helpers can find what they need on fetchMock.mock
 	Object.assign(jestifiedInstance.mock, jestifiedInstance.fetchHandler.mock);
 
-	['_isMockFunction', 'mockName', 'getMockName'].forEach(prop => {
+	['_isMockFunction', 'mockName', 'getMockName'].forEach((prop) => {
 		jestifiedInstance[prop] = jestifiedInstance.fetchHandler[prop];
 	});
 
@@ -101,4 +101,4 @@ const jestify = fetchMockInstance => {
 	return jestifiedInstance;
 };
 
-module.exports = fetchMock => jestify(fetchMock);
+module.exports = (fetchMock) => jestify(fetchMock);
