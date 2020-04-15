@@ -2,6 +2,34 @@
 jest.mock('node-fetch', () => require('../server').sandbox());
 const fetch = require('node-fetch');
 describe('jest extensions', () => {
+
+	describe('when no calls', () => {
+		beforeAll(() => {
+			fetch.mock('*', 200);
+		});
+		afterAll(() => fetch.reset());
+		it('toHaveFetched should be falsy', () => {
+			expect(fetch).not.toHaveFetched('http://example.com/path');
+		})
+
+		it('toHaveLastFetched should be falsy', () => {
+			expect(fetch).not.toHaveLastFetched('http://example.com/path');
+		})
+
+		it('toHaveNthFetched should be falsy', () => {
+			expect(fetch).not.toHaveNthFetched(1, 'http://example.com/path');
+		})
+
+		it('toHaveFetchedTimes should be falsy', () => {
+			expect(fetch).not.toHaveFetchedTimes(1, 'http://example.com/path');
+		})
+
+		it('toBeDone should be falsy', () => {
+			expect(fetch).not.toBeDone();
+			expect(fetch).not.toBeDone('http://example.com/path');
+		})
+
+	})
 	describe('toHaveFetched', () => {
 		beforeAll(() => {
 			fetch.mock('*', 200);

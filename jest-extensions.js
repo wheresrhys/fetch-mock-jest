@@ -9,7 +9,14 @@ expect.extend({
 		};
 	},
 	toHaveLastFetched: (fetchMock, url, options) => {
-		const lastCall = [...fetchMock.calls()].pop();
+		const allCalls = fetchMock.calls();
+		if (!allCalls.length) {
+			return {
+				pass: false,
+				message: () => `No calls made to fetch`
+			};
+		}
+		const lastCall = [...allCalls].pop();
 		const lastUrlCall = [...fetchMock.calls(url, options)].pop();
 		if (lastCall === lastUrlCall) {
 			return { pass: true };
