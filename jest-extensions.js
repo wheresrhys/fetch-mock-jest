@@ -23,7 +23,7 @@ expect.extend({
 		}
 		return {
 			pass: false,
-			message: () => `Last call to fetch should have had a URL of ${url}`
+			message: () => `Last call to fetch should have had a URL of ${url} but was ${lastCall.url}`
 		};
 	},
 
@@ -35,7 +35,7 @@ expect.extend({
 		}
 		return {
 			pass: false,
-			message: () => `${n}th call to fetch should have had a URL of ${url}`
+			message: () => `${n}th call to fetch should have had a URL of ${url} but was ${nthCall.url}`
 		};
 	},
 
@@ -59,7 +59,7 @@ expect.extend({
 		return {
 			pass: false,
 			message: () =>
-				'fetch has not been called the expected number of times in total'
+				`fetch has not been called the expected number of times ${matcher ? `for ${matcher}` : 'in total'}`
 		};
 	}
 });
