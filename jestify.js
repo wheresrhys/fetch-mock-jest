@@ -18,24 +18,34 @@ const jestify = (fetchMockInstance) => {
 
 	// spy on the fetch handler so we can use all the
 	// jest function assertions on it
-	jest.spyOn(jestifiedInstance, 'fetchHandler');
+	const spy = jest.fn();
+	const originalFetchHandler = jestifiedInstance.fetchHandler.bind(
+		jestifiedInstance
+	);
+
+	jestifiedInstance.fetchHandler = function (...args) {
+		const result = originalFetchHandler(...args);
+		spy.mockReturnValueOnce(result);
+		spy.apply(this, args);
+		return result;
+	};
 
 	// make sure all the jest expectation helpers can find what they need on fetchMock.mock
-	Object.assign(jestifiedInstance.mock, jestifiedInstance.fetchHandler.mock);
+	Object.assign(jestifiedInstance.mock, spy.mock);
 
 	['_isMockFunction', 'mockName', 'getMockName'].forEach((prop) => {
-		jestifiedInstance[prop] = jestifiedInstance.fetchHandler[prop];
+		jestifiedInstance[prop] = spy[prop];
 	});
 
 	jestifiedInstance.mockClear = () => {
-		jestifiedInstance.fetchHandler.mockClear();
+		spy.mockClear();
 		jestifiedInstance.resetHistory();
-		Object.assign(jestifiedInstance.mock, jestifiedInstance.fetchHandler.mock);
+		Object.assign(jestifiedInstance.mock, spy.mock);
 	};
 	jestifiedInstance.mockReset = () => {
-		jestifiedInstance.fetchHandler.mockReset();
+		spy.mockReset();
 		jestifiedInstance.reset();
-		Object.assign(jestifiedInstance.mock, jestifiedInstance.fetchHandler.mock);
+		Object.assign(jestifiedInstance.mock, spy.mock);
 	};
 	jestifiedInstance.mockRestore = () => {
 		throw new Error(
@@ -95,7 +105,7 @@ const jestify = (fetchMockInstance) => {
 
 	// make sure that the mock object that has properties updated
 	// by the jest spy is the one that is exposed on fetch
-	jestifiedInstance.fetchHandler.mock = jestifiedInstance.mock;
+	spy.mock = jestifiedInstance.mock;
 
 	// Return this monster!
 	return jestifiedInstance;

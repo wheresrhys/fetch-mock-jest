@@ -78,7 +78,6 @@ describe('jest built-ins', () => {
 		it('mockReset', () => {
 			expect(fetch.mockReset).toBeDefined();
 			fetch.mockReset();
-
 			expect(fetch.mock.calls.length).toEqual(0);
 			expect(fetch._calls.length).toEqual(0);
 			expect(fetch.routes.length).toEqual(0);
