@@ -48,13 +48,20 @@ The following custom jest expectation methods, proxying through to `fetch-mock`'
 - `expect(fetchMock).toHaveFetchedTimes(n, filter, options)`
 - `expect(fetchMock).toBeDone(filter)`
 
-`filter` and `options` are the same as those used by [`fetch-mock`'s inspection methods](http://www.wheresrhys.co.uk/fetch-mock/#api-inspectionfundamentals)
+### Notes
+
+- `filter` and `options` are the same as those used by [`fetch-mock`'s inspection methods](http://www.wheresrhys.co.uk/fetch-mock/#api-inspectionfundamentals)
+- The obove methods can have `Fetched` replaced by any of the following verbs to scope to a particular method: + Got + Posted + Put + Deleted + FetchedHead + Patched
+
+e.g. `expect(fetchMock).toHaveLastPatched(filter, options)`
 
 ## Tearing down mocks
 
 `fetchMock.mockClear()` can be used to reset the call history
 
 `fetchMock.mockReset()` can be used to remove all configured mocks
+
+Please report any bugs in resetting mocks on the [issues board](https://github.com/wheresrhys/fetch-mock-jest/issues)
 
 # Example
 
@@ -81,7 +88,8 @@ test(async () => {
 		);
 
 	expect(await userManager.getAll()).toEqual([{ name: 'bob' }]);
-	expect(fetchMock).toHaveLastFetched('http://example.com/users', 'get');
+	expect(fetchMock).toHaveLastFetched('http://example.com/users
+		get');
 	await userManager.create({ name: true });
 	expect(fetchMock).toHaveLastFetched(
 		{
