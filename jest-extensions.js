@@ -1,4 +1,4 @@
-expect.extend({
+const methodlessExtensions = {
 	toHaveFetched: (fetchMock, url, options) => {
 		if (fetchMock.called(url, options)) {
 			return { pass: true };
@@ -52,7 +52,10 @@ expect.extend({
 				`fetch should have been called with a URL of ${url} ${times} times, but it was called ${calls.length} times`,
 		};
 	},
+};
 
+expect.extend(methodlessExtensions);
+expect.extend({
 	toBeDone: (fetchMock, matcher) => {
 		const done = fetchMock.done(matcher);
 		if (done) {
@@ -66,4 +69,30 @@ expect.extend({
 				}`,
 		};
 	},
+});
+
+[
+	'Got:get',
+	'Posted:post',
+	'Put:put',
+	'Deleted:delete',
+	'FetchedHead:head',
+	'Patched:patch',
+].forEach((verbs) => {
+	const [humanVerb, method] = verbs.split(':');
+
+	const extensions = Object.entries(methodlessExtensions)
+		.map(([name, func]) => {
+			return [
+				(name = name.replace('Fetched', humanVerb)),
+				(...args) => {
+					const opts = args[func.length - 1] || {};
+					args[func.length - 1] = { ...opts, method };
+					return func(...args);
+				},
+			];
+		})
+		.reduce((obj, [name, func]) => ({ ...obj, [name]: func }), {});
+
+	expect.extend(extensions);
 });
