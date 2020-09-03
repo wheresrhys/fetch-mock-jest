@@ -36,7 +36,8 @@
   },
   "homepage": "https://github.com/wheresrhys/fetch-mock-jest#readme",
   "dependencies": {
-    "fetch-mock": "^9.0.0"
+    "fetch-mock": "^9.0.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
@@ -44,7 +45,6 @@
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
     "jest": "^25.0.0",
-    "node-fetch": "^2.6.0",
     "prettier": "^2.0.4"
   }
 }
