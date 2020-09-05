@@ -11,6 +11,17 @@ The example at the bottom of this readme demonstrates the intuitive API, but sho
 - can be used as a spy to observe real network requests
 - isomorphic, and supports either a global fetch instance or a locally required instanceg
 
+# Requirements 
+fetch-mock-jest requires the following to run:
+
+- [Node.js](https://Node.js.org/) 8+ for full feature operation
+- [Node.js](https://Node.js.org/) 0.12+ with [limitations](http://www.wheresrhys.co.uk/fetch-mock/installation)
+- [npm](https://www.npmjs.com/package/npm) (normally comes with Node.js)
+- [jest](https://www.npmjs.com/package/jest) 25+ (may work with earlier versions, but untested)
+- Either
+  - [node-fetch](https://www.npmjs.com/package/node-fetch) when testing in Node.js. To allow users a choice over which version to use, `node-fetch` is not included as a dependency of `fetch-mock`.
+  - A browser that supports the `fetch` API either natively or via a [polyfill/ponyfill](https://ponyfoo.com/articles/polyfills-or-ponyfills)
+
 # Installation
 
 `npm install -D fetch-mock-jest`
@@ -30,7 +41,7 @@ const fetchMock = require('node-fetch')
 
 ## Setting up mocks
 
-Please refer to the [fetch-mock documentation](http://wheresrhys.co.uk/fetch-mock)
+Please refer to the [fetch-mock documentation](http://wheresrhys.co.uk/fetch-mock) and [cheatsheet](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md)
 
 All jest methods for configuring mock functions are disabled as fetch-mock's own methods should always be used
 
