@@ -25,7 +25,6 @@ describe('jest extensions - put', () => {
 		});
 
 		it('toBeDone should be falsy', () => {
-			expect(fetch).not.toBeDone();
 			expect(fetch).not.toBeDone('http://example.com/path');
 		});
 	});
