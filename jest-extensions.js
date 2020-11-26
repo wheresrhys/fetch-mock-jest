@@ -1,3 +1,15 @@
+const callsAreEqual = (c1, c2) => {
+	if (!c1 && !c2) return true;
+	if (!c1 || !c2) return false;
+	if (c1[0] !== c2[0]) return false;
+	if (c1[1] !== c2[1]) return false;
+	if (c1.request !== c2.request) return false;
+	if (c1.identifier !== c2.identifier) return false;
+	if (c1.isUnmatched !== c2.isUnmatched) return false;
+	if (c1.response !== c2.response) return false;
+	return true;
+};
+
 const methodlessExtensions = {
 	toHaveFetched: (fetchMock, url, options) => {
 		if (fetchMock.called(url, options)) {
@@ -18,7 +30,7 @@ const methodlessExtensions = {
 		}
 		const lastCall = [...allCalls].pop();
 		const lastUrlCall = [...fetchMock.calls(url, options)].pop();
-		if (lastCall === lastUrlCall) {
+		if (callsAreEqual(lastCall, lastUrlCall)) {
 			return { pass: true };
 		}
 		return {
@@ -31,7 +43,7 @@ const methodlessExtensions = {
 	toHaveNthFetched: (fetchMock, n, url, options) => {
 		const nthCall = fetchMock.calls()[n - 1];
 		const urlCalls = fetchMock.calls(url, options);
-		if (urlCalls.includes(nthCall)) {
+		if (urlCalls.some((call) => callsAreEqual(call, nthCall))) {
 			return { pass: true };
 		}
 		return {
