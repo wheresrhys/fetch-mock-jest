@@ -11,7 +11,8 @@ The example at the bottom of this readme demonstrates the intuitive API, but sho
 - can be used as a spy to observe real network requests
 - isomorphic, and supports either a global fetch instance or a locally required instanceg
 
-# Requirements 
+# Requirements
+
 fetch-mock-jest requires the following to run:
 
 - [Node.js](https://Node.js.org/) 8+ for full feature operation
