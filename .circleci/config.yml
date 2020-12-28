@@ -6,13 +6,13 @@ references:
     filters:
       tags:
         only: /.*/
-  env: &env
+  container: &container
     docker:
       - image: circleci/node:12
 
 jobs:
   checkout_code:
-    <<: *env
+    <<: *container
     steps:
       - checkout
       - restore_cache:
@@ -24,23 +24,33 @@ jobs:
             - node_modules
 
   lint:
-    <<: *env
+    <<: *container
     steps:
       - checkout
       - restore_cache:
           key: npm-cache-{{ checksum "package-lock.json" }}
       - run: make lint-ci
 
-  test:
-    <<: *env
+  jest25:
+    <<: *container
     steps:
       - checkout
       - restore_cache:
           key: npm-cache-{{ checksum "package-lock.json" }}
+      - run: npm i jest@25
+      - run: make test
+
+  jest26:
+    <<: *container
+    steps:
+      - checkout
+      - restore_cache:
+          key: npm-cache-{{ checksum "package-lock.json" }}
+      - run: npm i jest@26
       - run: make test
 
   deploy:
-    <<: *env
+    <<: *container
     steps:
       - checkout
       - restore_cache:
@@ -54,22 +64,23 @@ workflows:
   checkout_and_test:
     jobs:
       - checkout_code: *triggerable-by-tag
-      - test:
-          <<: *triggerable-by-tag
-          requires:
-            - checkout_code
       - lint:
           <<: *triggerable-by-tag
           requires:
             - checkout_code
-      - test:
+      - jest25:
+          <<: *triggerable-by-tag
+          requires:
+            - checkout_code
+      - jest26:
           <<: *triggerable-by-tag
           requires:
             - checkout_code
       - deploy:
           context: wheresrhys-npm-publish
           requires:
-            - test
+            - jest25
+            - jest26
             - lint
           filters:
             branches:
