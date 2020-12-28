@@ -2,6 +2,7 @@
 require('./jest-extensions');
 
 const jestify = (fetchMockInstance) => {
+	const spy = jest.fn();
 	const jestifiedInstance = new Proxy(fetchMockInstance, {
 		get: (originalFetchMock, name) => {
 			if (name === 'sandbox') {
@@ -11,27 +12,20 @@ const jestify = (fetchMockInstance) => {
 						return jestify(sandboxedFetchMock);
 					},
 				});
+			} else if (name === 'fetchHandler') {
+				// spy on the fetch handler so we can use all the
+				// jest function assertions on it
+				return spy.mockImplementation((...args) =>
+					originalFetchMock.fetchHandler(...args)
+				);
+			} else if (name === 'mock') {
+				// When accessing the mock, expose all current properties of `spy.mock` as well
+				Object.assign(originalFetchMock.mock, spy.mock);
+				return originalFetchMock.mock;
 			}
 			return originalFetchMock[name];
 		},
 	});
-
-	// spy on the fetch handler so we can use all the
-	// jest function assertions on it
-	const spy = jest.fn();
-	const originalFetchHandler = jestifiedInstance.fetchHandler.bind(
-		jestifiedInstance
-	);
-
-	jestifiedInstance.fetchHandler = function (...args) {
-		const result = originalFetchHandler(...args);
-		spy.mockReturnValueOnce(result);
-		spy.apply(this, args);
-		return result;
-	};
-
-	// make sure all the jest expectation helpers can find what they need on fetchMock.mock
-	Object.assign(jestifiedInstance.mock, spy.mock);
 
 	['_isMockFunction', 'mockName', 'getMockName'].forEach((prop) => {
 		jestifiedInstance[prop] = spy[prop];
