@@ -1,3 +1,11 @@
+const diff = require('jest-diff').default;
+const {
+	printReceived,
+	printExpected,
+	matcherHint,
+} = require('jest-matcher-utils');
+const chalk = require('chalk');
+
 const callsAreEqual = (c1, c2) => {
 	if (!c1 && !c2) return true;
 	if (!c1 || !c2) return false;
@@ -10,11 +18,73 @@ const callsAreEqual = (c1, c2) => {
 	return true;
 };
 
+const methodVerbMap = [
+	'Got:get',
+	'Posted:post',
+	'Put:put',
+	'Deleted:delete',
+	'FetchedHead:head',
+	'Patched:patch',
+];
+
+const parseOptionsBody = (call) => {
+	if (!call[1] || !call[1].body) return call[1];
+	let body;
+	try {
+		body = JSON.parse(call[1].body);
+	} catch (e) {
+		body = call[1].body;
+	}
+
+	return call[1] && call[1].method
+		? { ...call[1], body, method: call[1].method.toLowerCase() }
+		: { ...call[1], body };
+};
+
+const buildOptionsDiffMessage = (options) => (acc, call, index) => {
+	const parsedOptions = parseOptionsBody(call);
+	const diffString = diff(options, parsedOptions, {
+		expand: this.expand,
+	});
+	const header = `${acc}\n\n${chalk.dim(`- Call ${index + 1} (${call[0]})`)}`;
+
+	if (!diffString) return acc;
+	return diffString.includes('- Expect')
+		? `${header}\nDifference:\n\n${diffString}`
+		: `${header}\nExpected options: ${printExpected(options)}\n` +
+				`Received options: ${printReceived(parsedOptions)}`;
+};
+
 const methodlessExtensions = {
 	toHaveFetched: (fetchMock, url, options) => {
 		if (fetchMock.called(url, options)) {
 			return { pass: true };
 		}
+
+		if (fetchMock.called(url)) {
+			const method = options && options.method ? options.method : 'get';
+			const [humanVerb] = methodVerbMap
+				.find((verbMethod) => verbMethod.includes(`:${method}`))
+				.split(':');
+			const messageHeader = `${matcherHint(
+				`toHave${humanVerb}`,
+				undefined,
+				undefined,
+				options
+			)}\n\nNo ${method} request was made with the expected options.`;
+
+			const message = () => {
+				return fetchMock
+					.filterCalls(url)
+					.reduce(buildOptionsDiffMessage(options), messageHeader);
+			};
+
+			return {
+				pass: false,
+				message,
+			};
+		}
+
 		return {
 			pass: false,
 			message: () => `fetch should have been called with ${url}`,
@@ -83,14 +153,7 @@ expect.extend({
 	},
 });
 
-[
-	'Got:get',
-	'Posted:post',
-	'Put:put',
-	'Deleted:delete',
-	'FetchedHead:head',
-	'Patched:patch',
-].forEach((verbs) => {
+methodVerbMap.forEach((verbs) => {
 	const [humanVerb, method] = verbs.split(':');
 
 	const extensions = Object.entries(methodlessExtensions)
