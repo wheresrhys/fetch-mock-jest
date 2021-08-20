@@ -39,9 +39,9 @@
 	"dependencies": {
 		"chalk": "^4.1.0",
 		"fetch-mock": "^9.11.0",
-		"jest": "^25.0.0",
-		"jest-diff": "^25.5.0",
-		"jest-matcher-utils": "^25.5.0"
+		"jest": "^27.0.6",
+		"jest-diff": "^27.0.6",
+		"jest-matcher-utils": "^27.0.6"
 	},
 	"devDependencies": {
 		"eslint": "^6.6.0",
