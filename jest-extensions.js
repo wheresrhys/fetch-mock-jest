@@ -1,4 +1,4 @@
-const diff = require('jest-diff').default;
+const { diff } = require('jest-diff');
 const {
 	printReceived,
 	printExpected,
