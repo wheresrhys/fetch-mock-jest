@@ -100,8 +100,7 @@ test(async () => {
 		);
 
 	expect(await userManager.getAll()).toEqual([{ name: 'bob' }]);
-	expect(fetchMock).toHaveLastFetched('http://example.com/users
-		get');
+	expect(fetchMock).toHaveLastFetched('http://example.com/users', 'get');
 	await userManager.create({ name: true });
 	expect(fetchMock).toHaveLastFetched(
 		{
