@@ -4,6 +4,7 @@ const {
 	printExpected,
 	matcherHint,
 } = require('jest-matcher-utils');
+const { equals } = require('@jest/expect-utils');
 const chalk = require('chalk');
 
 const callsAreEqual = (c1, c2) => {
@@ -62,6 +63,55 @@ const methodlessExtensions = {
 		}
 
 		if (fetchMock.called(url)) {
+			// check if body when accounting for jest matches
+			const matchesWithJestMatchers = fetchMock
+				.filterCalls(url)
+				.some(([, iteratedOptions]) => {
+					if (
+						iteratedOptions.method &&
+						options.method &&
+						iteratedOptions.method.toLowerCase() !==
+							options.method.toLowerCase()
+					)
+						return false;
+
+					try {
+						const parsedBody =
+							typeof iteratedOptions.body === 'string'
+								? JSON.parse(iteratedOptions.body)
+								: iteratedOptions.body;
+						if (!equals(parsedBody, options.body)) return false;
+					} catch (e) {
+						// eslint-disable-next-line no-console
+						console.error(
+							'Unable to parse body of mock call',
+							iteratedOptions.body
+						);
+						return false;
+					}
+
+					try {
+						const parsedHeaders =
+							typeof iteratedOptions.headers === 'string'
+								? JSON.parse(iteratedOptions.headers)
+								: iteratedOptions.headers;
+						if (!equals(parsedHeaders, options.headers)) return false;
+					} catch (e) {
+						// eslint-disable-next-line no-console
+						console.error(
+							'Unable to parse headers of mock call',
+							iteratedOptions.body
+						);
+						return false;
+					}
+
+					return true;
+				});
+
+			if (matchesWithJestMatchers) {
+				return { pass: true };
+			}
+
 			const method = options && options.method ? options.method : 'get';
 			const [humanVerb] = methodVerbMap
 				.find((verbMethod) => verbMethod.includes(`:${method}`))
