@@ -1,4 +1,5 @@
-** Deprecated - Use https://www.npmjs.com/package/@fetch-mock/jest instead **
+
+**Deprecated - Use https://www.npmjs.com/package/@fetch-mock/jest instead**
 
 # fetch-mock-jest
 
