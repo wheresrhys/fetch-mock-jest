@@ -1,3 +1,5 @@
+** Deprecated - Use https://www.npmjs.com/package/@fetch-mock/jest instead **
+
 # fetch-mock-jest
 
 Wrapper around [fetch-mock](http://www.wheresrhys.co.uk/fetch-mock) - a comprehensive, isomorphic mock for the [fetch api](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) - which provides an interface that is more idiomatic when working in [jest](https://jestjs.io).
