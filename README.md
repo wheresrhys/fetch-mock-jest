@@ -1,5 +1,5 @@
 
-**Deprecated - Use https://www.npmjs.com/package/@fetch-mock/jest instead**
+**Deprecated - Use https://www.npmjs.com/package/@fetch-mock/jest instead. This upgrade guide will help upgrade the underlying fetch-mock instance https://www.wheresrhys.co.uk/fetch-mock/docs/Usage/upgrade-guide**
 
 # fetch-mock-jest
 
