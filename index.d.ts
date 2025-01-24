@@ -22,6 +22,6 @@ interface FetchMockJest {
   sandbox(): jest.MockInstance<Response, MockCall> & FetchMockSandbox;
 }
 
-declare const fetchMockJest: FetchMockJest & jest.MockInstance<Response, MockCall> & FetchMockStatic
+declare const fetchMockJest: FetchMockJest & jest.MockInstance<Response, MockCall> & Omit<FetchMockStatic, keyof FetchMockJest>
 
 export = fetchMockJest;
