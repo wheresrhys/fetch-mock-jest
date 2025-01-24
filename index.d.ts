@@ -2,7 +2,7 @@ import { InspectionFilter, InspectionOptions, FetchMockStatic, MockCall, FetchMo
 
 declare global {
   namespace jest {
-    interface Matchers<R> {
+    interface Matchers<R, T> {
       toHaveFetched(filter?: InspectionFilter, options?: InspectionOptions): R;
       toHaveLastFetched(filter?: InspectionFilter, options?: InspectionOptions): R;
       toHaveNthFetched(n: number, filter?: InspectionFilter, options?: InspectionOptions): R;

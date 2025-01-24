@@ -36,11 +36,24 @@ describe('jest extensions - post', () => {
 				headers: {
 					test: 'header',
 				},
+				body: {
+					test: {
+						testBody: 'value',
+					},
+				},
 			});
 			fetch('http://example.com/path', {
 				method: 'post',
 				headers: {
 					test: 'header',
+				},
+				body: {
+					test: {
+						value: 'value',
+					},
+					otherValue: {
+						value: 'value',
+					},
 				},
 			});
 		});
@@ -77,6 +90,31 @@ describe('jest extensions - post', () => {
 				method: 'post',
 				headers: {
 					test: 'header',
+				},
+			});
+		});
+
+		it('matches when using jest expect matchers', () => {
+			expect(fetch).toHavePosted('http://example.com/path', {
+				method: 'post',
+				headers: {
+					test: 'header',
+				},
+				body: expect.objectContaining({
+					test: {
+						value: 'value',
+					},
+				}),
+			});
+			expect(fetch).toHavePosted('end:path2', {
+				method: 'post',
+				headers: {
+					test: 'header',
+				},
+				body: {
+					test: {
+						testBody: expect.stringContaining('val'),
+					},
 				},
 			});
 		});

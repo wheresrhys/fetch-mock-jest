@@ -1,56 +1,62 @@
 {
-  "name": "fetch-mock-jest",
-  "version": "0.0.0",
-  "description": "Jest wrapper for fetch-mock, a comprehensive stub for fetch",
-  "main": "server.js",
-  "browser": "browser.js",
-  "types": "index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wheresrhys/fetch-mock-jest.git"
-  },
-  "engines": {
-    "node": ">=8.0.0"
-  },
-  "keywords": [
-    "fetch",
-    "http",
-    "mock",
-    "testing",
-    "spy",
-    "jest"
-  ],
-  "funding": {
-    "type": "charity",
-    "url": "https://www.justgiving.com/refugee-support-europe"
-  },
-  "author": "Rhys Evans",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wheresrhys/fetch-mock-jest/issues"
-  },
-  "peerDependencies": {
-    "node-fetch": "*"
-  },
-  "homepage": "https://github.com/wheresrhys/fetch-mock-jest#readme",
-  "dependencies": {
-    "fetch-mock": "^9.11.0"
-  },
-  "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-origami-component": "^2.0.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "jest": "^25.0.0",
-    "node-fetch": "^2.6.0",
-    "prettier": "^2.0.4"
-  },
-  "peerDependenciesMeta": {
-    "node-fetch": {
-      "optional": true
-    }
-  }
+	"name": "fetch-mock-jest",
+	"version": "0.0.0",
+	"description": "Jest wrapper for fetch-mock, a comprehensive stub for fetch",
+	"main": "server.js",
+	"browser": "browser.js",
+	"types": "index.d.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wheresrhys/fetch-mock-jest.git"
+	},
+	"engines": {
+		"node": ">=8.0.0"
+	},
+	"keywords": [
+		"fetch",
+		"http",
+		"mock",
+		"testing",
+		"spy",
+		"jest"
+	],
+	"funding": {
+		"type": "charity",
+		"url": "https://www.justgiving.com/refugee-support-europe"
+	},
+	"author": "Rhys Evans",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/wheresrhys/fetch-mock-jest/issues"
+	},
+	"peerDependencies": {
+		"node-fetch": "*"
+	},
+	"homepage": "https://github.com/wheresrhys/fetch-mock-jest#readme",
+	"dependencies": {
+		"chalk": "^4.1.0",
+		"fetch-mock": "^9.11.0",
+		"jest": "^28.1.3",
+		"jest-diff": "^28.1.3",
+		"@jest/expect-utils": "^28.1.3",
+		"jest-matcher-utils": "^28.1.3"
+	},
+	"devDependencies": {
+		"@babel/helper-hoist-variables":"^7.18.6",
+		"@babel/helper-compilation-targets": "^7.18.9",
+		"eslint": "^6.6.0",
+		"eslint-config-origami-component": "^2.0.0",
+		"eslint-config-prettier": "^6.5.0",
+		"eslint-plugin-prettier": "^3.1.1",
+		"node-fetch": "^2.6.0",
+		"prettier": "^2.0.4"
+	},
+	"peerDependenciesMeta": {
+		"node-fetch": {
+			"optional": true
+		}
+	}
 }
